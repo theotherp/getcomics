@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="craptureApp">
+<head>
+  <title>Crapture</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+  <base href="{baseHref}"/>
+  
+  <link rel="stylesheet" href="static/css/alllibs.css" media="screen"/>
+  <link rel="stylesheet" href="static/css/jcrap.css" media="screen"/>
+  <link rel="icon" type="image/vnd.microsoft.icon" href="static/img/crap.ico"/>
+
+
+</head>
+<body style="text-align: center">
+
+<!-- Modal -->
+<div class="modal fade" id="deletionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid" style="" id="all" ng-controller="GlobalController">
+  <input id="searchfield" type="search" ng-model="query" ng-enter="iniateSearch()">
+  <button class="btn btn-default" type="button" id="startsearch" ng-click="iniateSearch()" style="padding-left: -5px; height: 35px; border: none">Go!</button>
+  
+  Loaded pages: {{page.currentPage}}
+  Page count: {{page.pageCount}}
+  <button class="btn btn-default" type="button" ng-click="loadNextPage()" style="padding-left: -5px; height: 35px; border: none">Load more!</button>
+  <button class="btn btn-default" type="button" ng-click="download()" style="padding-left: -5px; height: 35px; border: none">Download selected</button>
+  
+  
+  <div>
+    
+    <ul class="fileListingEntry no-animate" ng-repeat="post in posts | orderBy: 'title'" ng-class="{'hidden': file.isSmall}">
+      <li>
+        <input type="checkbox" name="deleteFile" value="{{ ::post.link }}" ng-model="post.checked">
+        <a href="{{file.relativePath}}" ng-click="goTo($event, file.relativePath)" class="isDir">{{ post.title }}</a>
+      </li>
+    </ul>
+  
+  </div>
+
+
+</div>
+
+</body>
+<script src="static/js/alllibs.js"></script>
+<script src="static/js/lib.js"></script>
+<script>
+    var bootstrap = {bootstrap};
+    angular.module("craptureApp").constant("bootstrapped", bootstrap);
+</script>
+</html>
